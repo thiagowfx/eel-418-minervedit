@@ -49,11 +49,11 @@
         <script type="text/javascript" src="bower_components/tinymce/tinymce.min.js"></script>
         <script>tinymce.init({
             selector: '#editor',
-            setup: function(ed) {
-                ed.on('init', function() {
-                    this.execCommand("fontSize", false, "18px");
-                });
-            }
+            plugins: [
+                "image", //essentials
+                "autolink code contextmenu link preview", // nice to have
+                "advlist charmap print searchreplace visualblocks" // not really important
+            ]
         });
         </script>
         <script type="text/javascript" src="js/main.js"></script>
