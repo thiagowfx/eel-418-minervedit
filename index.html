@@ -14,9 +14,9 @@
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 
         <!-- styles -->
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="css/main.css">
 
         <!--[if lt IE 9]>
             <script src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
@@ -27,14 +27,14 @@
 
     <div class="jumbotron">
       <div class="container">
-        <h1>MinervEdit <i class="glyphicon glyphicon-pencil"></i></h1>
+        <h1>MinervEdit <small><i class="glyphicon glyphicon-pencil"></i></small></h1>
         <p>Your favorite collaborative text editor.</p>
       </div>
     </div>
 
     <div class="container">
         <div class="col-md-12">
-          <!-- TODO: text editor enters here -->
+          <textarea id="editor" rows="10" cols="100"></textarea>
         </div>
 
       <hr />
@@ -44,8 +44,18 @@
       </footer>
     </div>
         <!-- scripts -->
-        <script src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="js/main.js"></script>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="bower_components/tinymce/tinymce.min.js"></script>
+        <script>tinymce.init({
+            selector: '#editor',
+            setup: function(ed) {
+                ed.on('init', function() {
+                    this.execCommand("fontSize", false, "18px");
+                });
+            }
+        });
+        </script>
+        <script type="text/javascript" src="js/main.js"></script>
     </body>
 </html>
