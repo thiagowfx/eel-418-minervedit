@@ -1,8 +1,8 @@
-$(document).ready(function() {
-    initWebsocket();
+$(document).ready(function () {
+    setupWebsocket();
 });
 
-function initWebsocket() {
+function setupWebsocket() {
     var websocket;
     var wsUri = "ws://localhost:8084/Websocket01/graficos";
 
@@ -15,11 +15,11 @@ function initWebsocket() {
 
     // websocket.binaryType = "arraybuffer";
 
-    websocket.onopen = function(evt) {
+    websocket.onopen = function (evt) {
         console.log("WEBSOCKET: connected.");
     };
 
-    websocket.onmessage = function(evt) {
+    websocket.onmessage = function (evt) {
         console.log("WEBSOCKET: message");
 
         // var json = JSON.parse(evt.data);
@@ -31,11 +31,18 @@ function initWebsocket() {
         // }
     };
 
-    websocket.onerror = function(evt) {
+    websocket.onerror = function (evt) {
         console.log("WEBSOCKET: error");
     };
 
     // websocket.send(json);
     // websocket.send(bytes);
 
+}
+
+function editorChanged(e) {
+    console.log('DEBUG: editorChanged');
+
+    var editorHTML = tinyMCE.get('editor').getContent();
+    tinyMCE.get('editor2').setContent(editorHTML);
 }

@@ -1,39 +1,46 @@
 <!doctype html>
 <html class="no-js" lang="">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>MinervEdit</title>
-        <meta name="author" content="Thiago Barroso Perrotta, Luiz Carlos Ciafrino Neto">
-        <meta name="application-name" content="MinervEdit">
-        <meta name="description" content="MinervEdit, a collaborative text editor">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="keywords" content="MinervEdit, text editor, collaborative">
 
-        <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>MinervEdit</title>
+    <meta name="author" content="Thiago Barroso Perrotta, Luiz Carlos Ciafrino Neto">
+    <meta name="application-name" content="MinervEdit">
+    <meta name="description" content="MinervEdit, a collaborative text editor">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="MinervEdit, text editor, collaborative">
 
-        <!-- styles -->
-        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 
-        <!--[if lt IE 9]>
+    <!-- styles -->
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+
+    <!--[if lt IE 9]>
             <script src="bower_components/html5shiv/dist/html5shiv.min.js"></script>
         <![endif]-->
-    </head>
-    <body>
+</head>
+
+<body>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"></nav>
 
     <div class="jumbotron">
-      <div class="container">
-        <h1>MinervEdit <small><i class="glyphicon glyphicon-pencil"></i></small></h1>
-        <p>Your favorite collaborative text editor.</p>
-      </div>
+        <div class="container">
+            <h1>MinervEdit <small><i class="glyphicon glyphicon-pencil"></i></small></h1>
+            <p>Your favorite collaborative text editor.</p>
+        </div>
     </div>
 
     <div class="container">
-          <textarea id="editor" rows="15"></textarea>
+        <div class="col-md-6">
+            <textarea id="editor" rows="6"></textarea>
+        </div>
+        <div class="col-md-6">
+            <textarea id="editor2" rows="6"></textarea>
+        </div>
     </div>
 
     <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
@@ -43,29 +50,65 @@
             </div>
         </div>
     </div>
-        <!-- scripts -->
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="bower_components/tinymce/tinymce.min.js"></script>
-        <script>tinymce.init({
+    <!-- scripts -->
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="bower_components/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({
+            selector: '#editor2',
+            plugins: [
+                "image", //essentials
+                "autolink code contextmenu link preview", // nice to have
+                "advlist charmap print searchreplace visualblocks" // not really important
+            ]
+        });
+        tinymce.init({
             selector: '#editor',
             plugins: [
                 "image", //essentials
                 "autolink code contextmenu link preview", // nice to have
                 "advlist charmap print searchreplace visualblocks" // not really important
             ],
-            image_list: [ 
-                {title: 'Lion #1', value: 'https://upload.wikimedia.org/wikipedia/en/3/36/OS_X_Lion.png'}, 
-                {title: 'Lion #2', value: 'http://img06.deviantart.net/1aeb/i/2014/264/5/8/lion_face_by_xoxo9696-d800gko.png'},
-                {title: 'Lion #3', value: 'http://www.asus.com/websites/global/products/QilkghH91IHI6Qa1/img/p1_6_lion.png'}
-            ],
-            link_list: [
-                {title: 'EEL 418 - Programação Avançada', value: 'http://www.lpc.ufrj.br/~leao/eel418/2015-1/eel418-2015-1.html'},
-                {title: 'UFRJ', value: 'http://www.ufrj.br/'},
-                {title: 'Websocket', value: 'https://www.websocket.org/'}
-            ]
+            image_list: [{
+                title: 'Lion #1',
+                value: 'https://upload.wikimedia.org/wikipedia/en/3/36/OS_X_Lion.png'
+            }, {
+                title: 'Lion #2',
+                value: 'http://img06.deviantart.net/1aeb/i/2014/264/5/8/lion_face_by_xoxo9696-d800gko.png'
+            }, {
+                title: 'Lion #3',
+                value: 'http://www.asus.com/websites/global/products/QilkghH91IHI6Qa1/img/p1_6_lion.png'
+            }],
+            link_list: [{
+                title: 'EEL 418 - Programação Avançada',
+                value: 'http://www.lpc.ufrj.br/~leao/eel418/2015-1/eel418-2015-1.html'
+            }, {
+                title: 'UFRJ',
+                value: 'http://www.ufrj.br/'
+            }, {
+                title: 'Websocket',
+                value: 'https://www.websocket.org/'
+            }],
+            setup: function(editor) {
+                // upstream documentation: http://www.tinymce.com/wiki.php/api4:class.tinymce.Editor
+                editor.on('change', function(e) {
+                    editorChanged(e);
+                });
+                editor.on('keypress', function(e) {
+                    editorChanged(e);
+                });
+                editor.on('redo', function(e) {
+                    editorChanged(e);
+                });
+                editor.on('undo', function(e) {
+                    editorChanged(e);
+                });
+            }
         });
-        </script>
-        <script type="text/javascript" src="js/main.js"></script>
-    </body>
+
+    </script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+
 </html>
