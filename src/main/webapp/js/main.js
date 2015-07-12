@@ -2,43 +2,30 @@ $(document).ready(function () {
     setupWebsocket();
 });
 
+var websocket;
+
 function setupWebsocket() {
-    var websocket;
-    var wsUri = "ws://localhost:8084/Websocket01/graficos";
-
-    try {
-        websocket = new WebSocket(wsUri);
-    } catch (err) {
-        console.log("WEBSOCKET: error on constructor", err);
-        return;
-    }
-
-    // websocket.binaryType = "arraybuffer";
+    var wsUri = "ws://" + document.location.host + document.location.pathname + "endpoint";
+    websocket = new WebSocket(wsUri);
 
     websocket.onopen = function (evt) {
-        console.log("WEBSOCKET: connected");
+        console.log("WEBSOCKET: connected to", wsUri);
     };
 
     websocket.onmessage = function (evt) {
-        console.log("WEBSOCKET: message");
-
-        // var json = JSON.parse(evt.data);
-        // if (typeof evt.data === "string") {
-        //     desenhar(json);
-        //     $('#idSpan').html(json.teta);
-        // } else {
-        //     console.log('Recebeu dados binários! E agora?');
-        // }
+        console.log("WEBSOCKET: message", evt.data);
+        console.log("WEBSOCKET: typeof message", typeof evt.data);
+        tinyMCE.get('editor').setContent(evt.data);
     };
 
     websocket.onerror = function (evt) {
-        console.log("WEBSOCKET: error");
+        console.log("WEBSOCKET: error", evt.data);
+        window.alert("WEBSOCKET: error: " + evt.data);
     };
 }
 
 function editorChanged(e) {
     console.log('DEBUG: editorChanged');
-
     var editorHTML = tinyMCE.get('editor').getContent();
-    // TODO: send this to websocket
+    websocket.send(editorHTML);
 }
