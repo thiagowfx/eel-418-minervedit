@@ -18,17 +18,20 @@ import javax.websocket.server.ServerEndpoint;
 public class TinyEndpoint {
 
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static String message;
 
     @OnMessage
     public void onMessage(String message) throws IOException {
+        this.message = message;
         for(Session session: peers) {
             session.getBasicRemote().sendText(message);
         }
     }
 
     @OnOpen
-    public void onOpen(Session peer) {
+    public void onOpen(Session peer) throws IOException {
         peers.add(peer);
+        peer.getBasicRemote().sendText(message);
     }
 
     @OnClose
