@@ -35,12 +35,17 @@
     </div>
 
     <div class="container">
-        <div class="col-md-6">
-            <textarea id="editor" rows="6"></textarea>
-        </div>
-        <div class="col-md-6">
-            <textarea id="editor2" rows="6"></textarea>
-        </div>
+        <textarea id="editor" rows="6"></textarea>
+    </div>
+
+    <br />
+
+    <div class="container">
+        <button type="button" onclick="tinyMCE.activeEditor.setContent('')">Clear</button>
+    </div>
+
+    <div class="container">
+        <textarea id="editor2" rows="6"></textarea>
     </div>
 
     <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
@@ -50,6 +55,13 @@
             </div>
         </div>
     </div>
+
+    <!--
+        Don't use display: none, or you won't be able to trigger the click.
+        Upstream reference: http://stackoverflow.com/questions/8595389/programmatically-trigger-select-file-dialog-box 
+    -->
+    <input id="imgUploadr" style="visibility: hidden;" type=file accept="image/*" onchange="imgUploadrOnChange()">
+
     <!-- scripts -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -70,6 +82,9 @@
                 "autolink code contextmenu link preview", // nice to have
                 "advlist charmap print searchreplace visualblocks" // not really important
             ],
+            image_description: false,
+            image_dimensions: false,
+            paste_data_images: true,
             image_list: [{
                 title: 'Lion #1',
                 value: 'https://upload.wikimedia.org/wikipedia/en/3/36/OS_X_Lion.png'
@@ -99,7 +114,6 @@
                 title: 'Websocket',
                 value: 'https://www.websocket.org/'
             }],
-            paste_data_images: true,
             setup: function(editor) {
                 // upstream documentation: http://www.tinymce.com/wiki.php/api4:class.tinymce.Editor
                 editor.on('change', function(e) {
@@ -114,8 +128,26 @@
                 editor.on('undo', function(e) {
                     editorChanged(e);
                 });
+            },
+            file_browser_callback: function(field_name, url, type, win) {
+                if (type === 'image') {
+                    $('#imgUploadr').click();
+                }
             }
         });
+
+        function imgUploadrOnChange() {
+            var blob = $("#imgUploadr")[0].files[0];
+            var reader = new FileReader();
+
+            reader.onloadend = function() {
+                base64data = reader.result;
+                tinyMCE.activeEditor.execCommand('mceInsertContent', false, '<img src="' + base64data + '"></img>');
+                tinyMCE.activeEditor.windowManager.close();
+            }
+
+            reader.readAsDataURL(blob);
+        }
 
     </script>
     <script type="text/javascript" src="js/main.js"></script>
