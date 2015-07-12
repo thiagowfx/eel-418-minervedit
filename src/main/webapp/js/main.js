@@ -3,6 +3,7 @@ $(document).ready(function () {
 });
 
 var websocket;
+var websocketInput = false;
 
 function setupWebsocket() {
     var wsUri = "ws://" + document.location.host + document.location.pathname + "endpoint";
@@ -14,8 +15,8 @@ function setupWebsocket() {
 
     websocket.onmessage = function (evt) {
         console.log("WEBSOCKET: message", evt.data);
-        console.log("WEBSOCKET: typeof message", typeof evt.data);
         tinyMCE.get('editor').setContent(evt.data);
+        websocketInput = false;
     };
 
     websocket.onerror = function (evt) {
@@ -25,7 +26,11 @@ function setupWebsocket() {
 }
 
 function editorChanged(e) {
-    console.log('DEBUG: editorChanged');
-    var editorHTML = tinyMCE.get('editor').getContent();
-    websocket.send(editorHTML);
+    if (!websocketInput) {
+        console.log('DEBUG: editorChanged');
+        var editorHTML = tinyMCE.get('editor').getContent();
+        console.log('DEBUG:', editorHTML);
+        websocketInput = true;
+        websocket.send(editorHTML);
+    }
 }

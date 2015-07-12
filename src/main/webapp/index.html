@@ -73,6 +73,9 @@
             image_description: false,
             image_dimensions: false,
             paste_data_images: true,
+            force_br_newlines: false,
+            force_p_newlines: false,
+            forced_root_block: '',
             image_list: [{
                 title: 'Lion #1',
                 value: 'https://upload.wikimedia.org/wikipedia/en/3/36/OS_X_Lion.png'
@@ -107,7 +110,7 @@
                 editor.on('change', function(e) {
                     editorChanged(e);
                 });
-                editor.on('keypress', function(e) {
+                editor.on('keyup', function(e) {
                     editorChanged(e);
                 });
                 editor.on('redo', function(e) {

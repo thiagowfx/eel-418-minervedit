@@ -5,6 +5,7 @@
  */
 package br.ufrj.minerveditor;
 
+import java.io.IOException;
 import java.util.*;
 import javax.websocket.*;
 import javax.websocket.server.ServerEndpoint;
@@ -16,12 +17,13 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint("/endpoint")
 public class TinyEndpoint {
 
-    private static Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
+    private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
 
     @OnMessage
-    public String onMessage(String message) {
-
-        return message + " (from your server)";
+    public void onMessage(String message) throws IOException {
+        for(Session session: peers) {
+            session.getBasicRemote().sendText(message);
+        }
     }
 
     @OnOpen
