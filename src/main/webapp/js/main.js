@@ -9,14 +9,14 @@ function setupWebsocket() {
     try {
         websocket = new WebSocket(wsUri);
     } catch (err) {
-        console.log("WEBSOCKET: error on constructor: " + err);
+        console.log("WEBSOCKET: error on constructor", err);
         return;
     }
 
     // websocket.binaryType = "arraybuffer";
 
     websocket.onopen = function (evt) {
-        console.log("WEBSOCKET: connected.");
+        console.log("WEBSOCKET: connected");
     };
 
     websocket.onmessage = function (evt) {
@@ -34,15 +34,11 @@ function setupWebsocket() {
     websocket.onerror = function (evt) {
         console.log("WEBSOCKET: error");
     };
-
-    // websocket.send(json);
-    // websocket.send(bytes);
-
 }
 
 function editorChanged(e) {
     console.log('DEBUG: editorChanged');
 
     var editorHTML = tinyMCE.get('editor').getContent();
-    tinyMCE.get('editor2').setContent(editorHTML);
+    // TODO: send this to websocket
 }

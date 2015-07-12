@@ -44,10 +44,6 @@
         <button type="button" onclick="tinyMCE.activeEditor.setContent('')">Clear</button>
     </div>
 
-    <div class="container">
-        <textarea id="editor2" rows="6"></textarea>
-    </div>
-
     <div class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
         <div class="container">
             <div class="navbar-text pull-right">
@@ -67,14 +63,6 @@
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="bower_components/tinymce/tinymce.min.js"></script>
     <script>
-        tinymce.init({
-            selector: '#editor2',
-            plugins: [
-                "image", //essentials
-                "autolink code contextmenu link preview", // nice to have
-                "advlist charmap print searchreplace visualblocks" // not really important
-            ]
-        });
         tinymce.init({
             selector: '#editor',
             plugins: [
