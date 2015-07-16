@@ -15,8 +15,6 @@ public class TinyEndpoint {
     public void onMessage(String message) throws IOException {
         this.message = message;
         for(Session session: peers) {
-            System.out.println("message: " + message + "=");
-            System.out.println("length: " + message.length());
             session.getBasicRemote().sendText(message);
         }
     }
